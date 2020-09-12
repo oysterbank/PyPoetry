@@ -46,15 +46,16 @@ model.add(Dense(Y_modified.shape[1], activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam')
 
+# Change the number of epochs here for deeper learning.
 model.fit(X_modified, Y_modified, epochs=100, batch_size=50)
 
-model.save_weights('text_generator_gigantic.h5')
-
-model.load_weights('/Users/pranjal/Desktop/text_generator/models/text_generator_gigantic.h5')
+model.save_weights('/Users/krislaratta/pypoetry/models/weights.h5')
+model.load_weights('/Users/krislaratta/pypoetry/models/weights.h5')
 
 string_mapped = X[99]
 full_string = [n_to_char[value] for value in string_mapped]
-# generating characters
+
+# Generating characters
 for i in range(400):
     x = np.reshape(string_mapped, (1, len(string_mapped), 1))
     x = x / float(len(characters))
@@ -66,8 +67,8 @@ for i in range(400):
     string_mapped.append(pred_index)
     string_mapped = string_mapped[1:len(string_mapped)]
 
-# combining text
+# Combining text
 txt = ""
 for char in full_string:
     txt = txt+char
-txt
+print(txt)
